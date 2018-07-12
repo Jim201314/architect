@@ -1,4 +1,4 @@
-package com.laobaozi.algorithm;
+package com.laobaozi.algorithm.acm;
 
 /**
  * Created by jim on 2018/7/3.

@@ -43,4 +43,13 @@ public class MapDemo {
      * 必须首先获得它对应的Segment锁。
      */
     Map concurrentHashMap = new ConcurrentHashMap();
+
+
+    public static void main(String[] args) {
+        MapDemo mapDemo = new MapDemo();
+        mapDemo.hashMap.put("test", "1111");
+        mapDemo.hashMap.put("test2", "2222");
+
+        String str = (String) mapDemo.hashMap.get("test");
+    }
 }
