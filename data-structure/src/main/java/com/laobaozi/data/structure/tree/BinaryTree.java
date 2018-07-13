@@ -1,5 +1,7 @@
 package com.laobaozi.data.structure.tree;
 
+import sun.print.CUPSPrinter;
+
 /**
  * 二叉树 : 每个节点最多有两个叶子节点
  * 完全二叉树：叶节点只能出现在最下层和次下层，并且最下面一层的结点都集中在该层最左边的若干位置的二叉树。
@@ -123,6 +125,89 @@ public class BinaryTree {
         }
         maxminVal[1] = maxNode;
         return maxminVal;
+    }
+
+    /**
+     * 删除节点
+     * @param key
+     */
+    public boolean removeNode(int key) {
+        Node current = root;
+        Node parent = root;
+        boolean isLeftChild = true;
+        while(key != current.iData) {
+            parent = current;
+            if (key < current.iData) {
+                isLeftChild = true;
+                current = current.leftNode;
+            } else {
+                isLeftChild = false;
+                current = current.rightNode;
+            }
+            if (current == null) {
+                return false;
+            }
+
+            //删除没有子节点的节点情况
+            if (current.leftNode == null && current.rightNode == null) {
+                if (current == root) {
+                    root = null;
+                }
+                if (isLeftChild) {
+                    parent.leftNode = null;
+                }
+                if (!isLeftChild) {
+                    parent.rightNode = null;
+                }
+            }
+            //删除具有一个左子节点的节点
+            else if (current.rightNode == null) {
+                if (current == root) {
+                    root = current.leftNode;
+                } else if (isLeftChild) {
+                    parent.leftNode = current.leftNode;
+                } else {
+                    parent.rightNode = current.leftNode;
+                }
+            }
+            //删除具有一个右节点的节点
+            else if (current.leftNode == null) {
+                if (current == root) {
+                    root = current.rightNode;
+                } else if (isLeftChild) {
+                    parent.leftNode = current.rightNode;
+                } else {
+                    parent.rightNode = current.rightNode;
+                }
+            } else {
+                Node successor = getSuccessor(current);
+                if(current == root) {
+                    root = successor;
+                }else if(isLeftChild) {
+                    parent.leftNode = successor;
+                }else {
+                    parent.rightNode = successor;
+                }
+                successor.leftNode = current.leftNode;
+            }
+        }
+        return true;
+    }
+
+    public Node getSuccessor(Node delNode) {
+            Node successor_parent = delNode;
+            Node successor = delNode;
+            Node current = delNode.rightNode;
+            while (current != null) {
+                successor_parent = current;
+                successor = current;
+                current = current.leftNode;
+            }
+            if(successor != delNode.rightNode) {
+                successor_parent.leftNode = successor.rightNode;
+                successor.rightNode = delNode.rightNode;
+            }
+            return successor;
     }
 
 
