@@ -6,7 +6,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by jim on 2018/7/10.
+ *
+ * @author jim
+ * @date 2018/7/10
  */
 public class BlockQueueDemo {
     /**
