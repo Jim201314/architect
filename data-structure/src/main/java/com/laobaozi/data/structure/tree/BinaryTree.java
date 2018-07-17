@@ -5,6 +5,7 @@ import sun.print.CUPSPrinter;
 /**
  * 二叉树 : 每个节点最多有两个叶子节点
  * 完全二叉树：叶节点只能出现在最下层和次下层，并且最下面一层的结点都集中在该层最左边的若干位置的二叉树。
+ *
  * @author jim
  * @date 2018/7/13
  */
@@ -129,13 +130,14 @@ public class BinaryTree {
 
     /**
      * 删除节点
+     *
      * @param key
      */
     public boolean removeNode(int key) {
         Node current = root;
         Node parent = root;
         boolean isLeftChild = true;
-        while(key != current.iData) {
+        while (key != current.iData) {
             parent = current;
             if (key < current.iData) {
                 isLeftChild = true;
@@ -181,11 +183,11 @@ public class BinaryTree {
                 }
             } else {
                 Node successor = getSuccessor(current);
-                if(current == root) {
+                if (current == root) {
                     root = successor;
-                }else if(isLeftChild) {
+                } else if (isLeftChild) {
                     parent.leftNode = successor;
-                }else {
+                } else {
                     parent.rightNode = successor;
                 }
                 successor.leftNode = current.leftNode;
@@ -195,19 +197,19 @@ public class BinaryTree {
     }
 
     public Node getSuccessor(Node delNode) {
-            Node successor_parent = delNode;
-            Node successor = delNode;
-            Node current = delNode.rightNode;
-            while (current != null) {
-                successor_parent = current;
-                successor = current;
-                current = current.leftNode;
-            }
-            if(successor != delNode.rightNode) {
-                successor_parent.leftNode = successor.rightNode;
-                successor.rightNode = delNode.rightNode;
-            }
-            return successor;
+        Node successor_parent = delNode;
+        Node successor = delNode;
+        Node current = delNode.rightNode;
+        while (current != null) {
+            successor_parent = current;
+            successor = current;
+            current = current.leftNode;
+        }
+        if (successor != delNode.rightNode) {
+            successor_parent.leftNode = successor.rightNode;
+            successor.rightNode = delNode.rightNode;
+        }
+        return successor;
     }
 
 
